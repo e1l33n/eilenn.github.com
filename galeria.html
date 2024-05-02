@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu mas grande felicidad</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+<script>
+  // Función para permitir soltar elementos arrastrados
+  function allowDrop(event) {
+      event.preventDefault();
+  }
+
+  // Función para arrastrar elementos
+  function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+  }
+
+  // Función para soltar elementos
+  function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      var draggedElement = document.getElementById(data);
+      var dropZone = event.target;
+      if (dropZone.classList.contains('droppable')) {
+          dropZone.appendChild(draggedElement);
+      }
+  }
+
+  // Función para verificar si se adivinó el animal correcto
+  function verificarResultado() {
+      var resultado = document.getElementById('resultado');
+      var perro = document.getElementById('perro');
+      var gato = document.getElementById('gato');
+      var vaca = document.getElementById('vaca');
+      var paloma = document.getElementById('paloma');
+      if (perro.childNodes.length > 0 && perro.childNodes[0].id === 'nombre_perro' &&
+          gato.childNodes.length > 0 && gato.childNodes[0].id === 'nombre_gato' &&
+          vaca.childNodes.length > 0 && vaca.childNodes[0].id === 'nombre_vaca' &&
+          paloma.childNodes.length > 0 && paloma.childNodes[0].id === 'nombre_paloma') {
+          resultado.innerText = '¡Felicidades! ¡Has colocado las palabras correctamente!';
+          resultado.style.color = 'green';
+      } else {
+          resultado.innerText = 'Incorrecto. Intenta de nuevo.';
+          resultado.style.color = 'red';
+      }
+  }
+
+  // Función para reiniciar el juego
+  function reiniciarJuego() {
+      var resultado = document.getElementById('resultado');
+      var perro = document.getElementById('perro');
+      var gato = document.getElementById('gato');
+      var vaca = document.getElementById('vaca');
+      var paloma = document.getElementById('paloma');
+      perro.innerHTML = '';
+      gato.innerHTML = '';
+      vaca.innerHTML = '';
+      paloma.innerHTML = '';
+      resultado.innerText = '';
+
+      // Restablecer las palabras a su posición inicial
+      var nombres = document.querySelectorAll('.name');
+      for (var i = 0; i < nombres.length; i++) {
+          nombres[i].style.display = 'block';
+      }
+  }
+  
+</script>
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+  }
+  header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+  }
+  .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+  }
+  .main-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+  }
+  .draggable {
+            cursor: pointer;
+        }
+        .droppable {
+            border: 2px dashed #000;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .animals {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .animal {
+            margin-bottom: 5px;
+        }
+        .names {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .name {
+            margin-bottom: 10px;
+        }
+        .draggable {
+            cursor: pointer;
+        }
+        .droppable {
+            border: 2px dashed #000;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        table {
+        border-collapse: collapse;
+        width: 80%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    td {
+        padding: 20px;
+        text-align: center;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Concientización del Idioma Kichwa</h1>
+</header>
+
+    <nav class="link">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">Principal</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="servicios.html">Videos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="galeria.html">Practica</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="hola.html">Numeros</a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </nav>
+    <div class="container">
+      <div class="animals">
+        <table>
+        <tr>
+          <td>
+            <div class="animal" id="animal1" ondrop="drop(event)" ondragover="allowDrop(event)">
+              <img src="img/perro.jpg" alt="Perro" id="perro" class="droppable">
+          </div>
+        </td>
+        <td>
+          <div class="animal" id="animal2" ondrop="drop(event)" ondragover="allowDrop(event)">
+              <img src="img/gato.jpg" alt="Gato" id="gato" class="droppable">
+          </div>
+        </td>
+        <td>
+            <button type="submit" onclick="verificarResultado()">Verificar</button>
+            <div id="resultado"></div>
+        </td>
+        </tr>
+        <tr>
+         <td>
+            <div class="animal" id="animal3" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="img/vaca.jpg" alt="vaca" id="vaca" class="droppable">
+        </div>
+    </td>
+    <td>
+        <div class="animal" id="animal4" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="img/paloma.jpg" alt="paloma" id="paloma" class="droppable">
+        </div>
+    </td>
+    <td>
+    </div>
+    <div class="names">
+        <div class="name draggable" draggable="true" id="nombre_vaca" ondragstart="drag(event)">Wakra</div>
+        <div class="name draggable" draggable="true" id="nombre_gato" ondragstart="drag(event)">Misi</div>
+        <div class="name draggable" draggable="true" id="nombre_paloma" ondragstart="drag(event)">Urpi</div>
+        <div class="name draggable" draggable="true" id="nombre_perro" ondragstart="drag(event)">Allku</div>
+        <!-- Agrega más nombres de animales aquí -->
+    </div>
+    </td>
+    </tr>
+   
+</table>
+          <!-- Agrega más imágenes de animales aquí -->
+      </div>
+     
+      
+  </div>
+
+
+      <footer>
+        <p>&copy; 2024 Concientización del Idioma Kichwa</p>
+    </footer>
+
+</body>
+</html>
